@@ -117,6 +117,33 @@ _C#/.NET_ [localtunnel-client](https://github.com/angelobreuer/localtunnel-clien
 
 See [localtunnel/server](//github.com/localtunnel/server) for details on the server that powers localtunnel.
 
+## See:
+
+See [Easy local tunnel with docker environment] (https://dev.to/qelphybox/easy-local-tunnel-with-docker-environment-1oc0)
+
+## You can check it with docker-compose. Setup docker-compose.yml, for example:
+
+# docker-compose.yml
+version: '3.8'
+
+services:
+  server:
+    image: nginxdemos/hello
+    ports: 
+      - 80
+
+  localtunnel:
+    image: efrecon/localtunnel
+    restart: on-failure
+    command:
+      --local-host server --port 80 --subdomain $SUBDOMAIN
+    environment: 
+      - SUBDOMAIN=megauniquedomain
+    links:
+      - server
+    depends_on:
+      - server
+
 ## License
 
 MIT
